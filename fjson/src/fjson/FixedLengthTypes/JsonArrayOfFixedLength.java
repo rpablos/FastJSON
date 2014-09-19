@@ -7,6 +7,7 @@ import fjson.Types.JsonArray_Impl;
 import java.lang.reflect.Array;
 import java.util.AbstractList;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import javax.json.JsonArray;
 import javax.json.JsonNumber;
@@ -49,7 +50,7 @@ public abstract class JsonArrayOfFixedLength  extends AbstractList<JsonValue> im
         List<T> list = new ArrayList<T>(len);
         for (int i = 0; i < len; i++)
             list.add((T)get(i));
-        return list;
+        return Collections.unmodifiableList(list);
     }
 
     @Override
@@ -68,13 +69,34 @@ public abstract class JsonArrayOfFixedLength  extends AbstractList<JsonValue> im
     public int getInt(int i) { return getJsonNumber(i).intValue(); }
 
     @Override
-    public int getInt(int i, int defaultValue) { return getInt(i);  }
+    public int getInt(int i, int defaultValue) {
+        try {
+            return getInt(i);  
+        } catch (Exception ex) {
+            return defaultValue;
+        }
+    }
 
     @Override
-    public boolean getBoolean(int i) { return (Boolean)(Object)get(i); }
+    public boolean getBoolean(int i) {
+        JsonValue jsonValue = get(i);
+        if (jsonValue == JsonValue.TRUE) {
+              return true;
+         } else if (jsonValue == JsonValue.FALSE) {
+             return false;
+         } else {
+             throw new ClassCastException();
+         }
+    }
 
     @Override
-    public boolean getBoolean(int i, boolean defaultValue) { return getBoolean(i); }
+    public boolean getBoolean(int i, boolean defaultValue) { 
+        try {
+            return getBoolean(i); 
+        } catch (Exception ex) {
+            return defaultValue;
+        }
+    }
 
     @Override
     public boolean isNull(int i) { return false; }

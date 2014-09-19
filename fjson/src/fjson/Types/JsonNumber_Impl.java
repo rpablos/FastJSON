@@ -36,12 +36,12 @@ public class JsonNumber_Impl implements JsonNumber {
 
     @Override
     public long longValue() {
-        return longValue();
+        return theNumber.longValue();
     }
 
     @Override
     public long longValueExact() {
-        return longValueExact();
+        return theNumber.longValueExact();
     }
 
     @Override
@@ -56,7 +56,7 @@ public class JsonNumber_Impl implements JsonNumber {
 
     @Override
     public double doubleValue() {
-        return doubleValue();
+        return theNumber.doubleValue();
     }
 
     @Override

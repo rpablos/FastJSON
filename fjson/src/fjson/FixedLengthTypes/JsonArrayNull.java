@@ -25,6 +25,11 @@ public class JsonArrayNull extends JsonArrayOfFixedLength {
        return size;
     }
 
+    @Override
+    public boolean isNull(int i) {
+        return true;
+    }
+
 
     @Override
     public ArrayType getArrayType() {
