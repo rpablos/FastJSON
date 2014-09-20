@@ -28,3 +28,27 @@ It is recommended for enviroments like M2M or IoT, where the volumen is importan
   - Algorithms
 - Efficient codification of small identifiers (small unsigned integers)
 
+#### Example of size ####
+Given the following JSON document:
+
+```
+[
+	{
+		"id": 0,
+		"Vendor":"vendor1",
+		"MSISDN":"1234567890",
+		"Power":1234567890.123456789,
+		"Kc":"BA3DE1F4AABBCCDD",
+		"Bitmask":[true,false,true,true,true,true,false,true]
+	},
+	{
+		"id":1,
+		"Vendor":"vendor2",
+		"MSISDN":"7890123456",
+		"Power":9876543210.123456789,
+		"Kc":"FFEEDDCCBBAABBCC",
+		"Bitmask":[false,false,true,false,true,true,false,true]
+	}
+]
+```
+The size of this JSON document is 380 octets in pretty format (whitespace characters). Without whitespace characters is 317 octets and with the Fast JSON encoding is 135 octets. It would fit in a single SMS.
