@@ -5,13 +5,12 @@ package fjson.FixedLengthTypes;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
-import javax.json.JsonNumber;
 
 /**
  *
  * @author rpablos
  */
-public class JsonNumberINT8 implements JsonNumber,JsonFixedLengthNumberType {
+public class JsonNumberINT8 implements JsonFixedLengthNumberType {
     byte value;
 
     public JsonNumberINT8(byte value) {

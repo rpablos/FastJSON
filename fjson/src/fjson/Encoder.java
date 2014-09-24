@@ -10,6 +10,7 @@ import fjson.Alphabet.CharacterOutOfRangeException;
 import fjson.Alphabet.Numeric;
 import fjson.FixedLengthTypes.JsonArrayOfFixedLength;
 import fjson.FixedLengthTypes.JsonFixedLengthNumberType;
+import fjson.FixedLengthTypes.JsonNumberUINT5;
 import fjson.Types.JsonAlgorithmEncodingString;
 import fjson.util.Additional_datum;
 import fjson.util.AllowIndexMap;
@@ -183,11 +184,19 @@ public class Encoder {
             }
         } else {
             JsonFixedLengthNumberType flnvalue = (JsonFixedLengthNumberType) value;
-            current_octet |= flnvalue.getType().ordinal();
-            flush_currentoctet();
-            _out.write(flnvalue.toByteArray());
+            switch (flnvalue.getType()) {
+                case UNIT5:
+                    current_octet |= FjsonConstants.NUMBER_LITTLEUINT_IDENTIFICATION;
+                    current_octet |= flnvalue.intValue();
+                    flush_currentoctet();
+                    break;
+                default:
+                    current_octet |= flnvalue.getType().ordinal();
+                    flush_currentoctet();
+                    _out.write(flnvalue.toByteArray());
+                    break;
+            }
         }
-        
     }
     protected void encodeJsonValue(JsonValue value) throws IOException {
         switch (value.getValueType()) {

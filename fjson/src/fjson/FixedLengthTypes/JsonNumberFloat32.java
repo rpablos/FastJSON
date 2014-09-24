@@ -6,13 +6,12 @@ package fjson.FixedLengthTypes;
 import fjson.util.PrimitiveArraySerializer;
 import java.math.BigDecimal;
 import java.math.BigInteger;
-import javax.json.JsonNumber;
 
 /**
  *
  * @author rpablos
  */
-public class JsonNumberFloat32 implements JsonNumber, JsonFixedLengthNumberType {
+public class JsonNumberFloat32 implements JsonFixedLengthNumberType {
     float value;
     BigDecimal valueBig;
 
