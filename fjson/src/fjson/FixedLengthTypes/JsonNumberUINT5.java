@@ -22,7 +22,7 @@ public class JsonNumberUINT5 extends JsonNumberINT8 {
 
     @Override
     public NumberType getType() {
-        return NumberType.UNIT5;
+        return NumberType.UINT5;
     }
 
     @Override

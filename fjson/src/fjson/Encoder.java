@@ -10,7 +10,6 @@ import fjson.Alphabet.CharacterOutOfRangeException;
 import fjson.Alphabet.Numeric;
 import fjson.FixedLengthTypes.JsonArrayOfFixedLength;
 import fjson.FixedLengthTypes.JsonFixedLengthNumberType;
-import fjson.FixedLengthTypes.JsonNumberUINT5;
 import fjson.Types.JsonAlgorithmEncodingString;
 import fjson.util.Additional_datum;
 import fjson.util.AllowIndexMap;
@@ -185,7 +184,7 @@ public class Encoder {
         } else {
             JsonFixedLengthNumberType flnvalue = (JsonFixedLengthNumberType) value;
             switch (flnvalue.getType()) {
-                case UNIT5:
+                case UINT5:
                     current_octet |= FjsonConstants.NUMBER_LITTLEUINT_IDENTIFICATION;
                     current_octet |= flnvalue.intValue();
                     flush_currentoctet();
@@ -641,6 +640,9 @@ public class Encoder {
         }
     }
     
+    public void setAdditional_Data(List<Additional_datum> additional_data) {
+        this.additional_data = additional_data;
+    }
     public void setInitialVocabulary(InitialVocabulary initialVocabulary) {
         vocabulary.setInitialVocabulary(initialVocabulary);
     }

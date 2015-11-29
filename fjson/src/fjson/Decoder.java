@@ -607,6 +607,9 @@ public class Decoder {
     public Map<String, InitialVocabulary> getRegistredVocabularies() {
         return registredExternalVocabulary;
     }
+    public List<Additional_datum> getAdditional_Data() {
+        return additional_data;
+    }
     
     static class JsonLocation_Impl implements JsonLocation {
 

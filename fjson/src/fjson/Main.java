@@ -27,7 +27,7 @@ public class Main {
      * @throws java.io.IOException
      */
     public static void main(String[] args) throws Exception {
-               
+         
         if (args.length < 2 || args.length > 3) {
            System.out.println(java.util.ResourceBundle.getBundle("fjson/locale/strings").getString("USO"));
            System.out.println(java.util.ResourceBundle.getBundle("fjson/locale/strings").getString("USO1"));

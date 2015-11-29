@@ -34,13 +34,15 @@ import javax.json.JsonValue;
  */
 public class JsonObject_Impl extends AbstractMap<String, JsonValue> implements JsonObject {
     Map<String, JsonValue> map;
+    Set<Entry<String, JsonValue>> entryset;
     
     public JsonObject_Impl(Map<String, JsonValue> map) {
         this.map = map;
+        entryset = Collections.unmodifiableSet(map.entrySet());
     }
     @Override
     public Set<Entry<String, JsonValue>> entrySet() {
-        return Collections.unmodifiableSet(map.entrySet());
+        return entryset;
     }
 
     @Override
