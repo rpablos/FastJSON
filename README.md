@@ -27,6 +27,7 @@ It is recommended for enviroments like M2M or IoT, where the volumen is importan
   - Alphabets
   - Algorithms
 - Efficient codification of small unsigned integers
+- Optionally, arbitrary attachments can be included in a fast json encoding. Very useful to attach data related to the json document.
 - Utility class for supporting for org.json package classes (`JSONObject` and `JSONArray`), used in android development.
 
 #### Example of size ####
