@@ -520,8 +520,10 @@ public class Decoder {
         int len = decodeSequenceOfLength();
         List<Additional_datum> result = new ArrayList<Additional_datum>(len);
         for (; len > 0; len--) {
+            readOctet();
             int l = decodeUTF8inInternalEncodingBuffer(decodeNonEmptyOctetStringOnSecondBit());
             String id = new String(_decodingBuffer, 0, l);
+            readOctet();
             byte[] data = decodeNonEmptyOctetStringOnSecondBit();
             result.add(new Additional_datum(id, data));
         }

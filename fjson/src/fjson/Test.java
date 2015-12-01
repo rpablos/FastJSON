@@ -22,7 +22,7 @@ import javax.json.JsonArray;
  */
 public class Test {
     public static void main(String[] args) {
-        
+
         JsonArray jsonArray = Json.createArrayBuilder().
                 add(Json.createObjectBuilder().
                         add("id", 0).
