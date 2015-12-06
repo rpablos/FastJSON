@@ -233,7 +233,7 @@ public class Decoder {
             case Algorithm:
                 return new JsonAlgorithmEncodingString(estr.algorithm.objectFromByteArray(estr.theData), estr.algorithm);
             case Alphabet:
-                return new JsonAlphabetConstrainedString(estr.algorithm.fromByteArray(estr.theData), (Alphabet) estr.algorithm);
+                return new JsonAlphabetConstrainedString(estr.getString(), (Alphabet) estr.algorithm);
             default:
                 return new JsonString_Impl(estr.getString());
         }

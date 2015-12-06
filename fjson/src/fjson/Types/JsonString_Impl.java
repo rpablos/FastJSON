@@ -34,7 +34,7 @@ public class JsonString_Impl implements JsonString{
 
     @Override
     public String toString() {
-        return toJSONText(theString);
+        return toJSONText(getString());
     }
 
     @Override
