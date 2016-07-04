@@ -73,8 +73,8 @@ public class Vocabulary extends BuiltinVocabulary {
         addToMap(algorithms, algorithms_builtin);
         addToMap(alphabets, alphabets_builtin);
     }
-    <T> void addToMap(IndexMap<T> map, List<T> set) {
-        Iterator<T> it = set.iterator();
+    <T> void addToMap(IndexMap<T> map, List<T> list) {
+        Iterator<T> it = list.iterator();
         while (it.hasNext()) {
             T t = it.next();
             if (t == null)
@@ -94,7 +94,7 @@ public class Vocabulary extends BuiltinVocabulary {
         string_values.clear();
         init(initialVocabulary);
     }
-    public InitialVocabulary toInitialVocabulary() {
+    public InitialVocabulary toInitialVocabularyExcludingInitialVocabulary() {
         InitialVocabulary result = new InitialVocabulary();
 //        result.algorithms.addAll(Arrays.asList(algorithms.getKeysInOrder(new Algorithm[0],internalInitialVocabulary.algorithms.index)));
 //        result.alphabets.addAll(Arrays.asList(alphabets.getKeysInOrder(new Alphabet[0],internalInitialVocabulary.alphabets.index)));

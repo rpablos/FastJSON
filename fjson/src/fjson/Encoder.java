@@ -610,7 +610,7 @@ public class Encoder {
         if ((mascara & FjsonConstants.INITIAL_VOCABULARY_STRING_VALUES_FLAG) != 0) {
             encodeEncodedCharacterStringVocabularyTable(initialVocabulary.string_values);
         }
-        throw new UnsupportedOperationException("Not yet implemented");
+        
     }
     protected void encodeAlphabetVocabularyTable(List<Alphabet> table) throws IOException {
         encodeSequenceOfLength(table.size());
@@ -647,7 +647,7 @@ public class Encoder {
         vocabulary.setInitialVocabulary(initialVocabulary);
     }
     public InitialVocabulary getDynamicallyGeneratedVocabularyAsInitial() {
-        return vocabulary.toInitialVocabulary();
+        return vocabulary.toInitialVocabularyExcludingInitialVocabulary();
     }
     public InitialVocabulary getAllVocabularyAsInitial() {
         return vocabulary.toInitialVocabularyIncludingInitialVocabulary();
