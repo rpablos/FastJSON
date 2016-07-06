@@ -1,5 +1,5 @@
 //  Author: Ronald Pablos
-//  Year: 2016 
+//  Year: 2016
 
 package fjson;
 

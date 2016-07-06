@@ -20,10 +20,8 @@ import fjson.util.PrimitiveArraySerializer;
 import fjson.util.Vocabulary;
 import java.io.IOException;
 import java.io.OutputStream;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Map.Entry;
-import java.util.Set;
+import java.util.Map;
 import javax.json.JsonArray;
 import javax.json.JsonNumber;
 import javax.json.JsonObject;
@@ -36,7 +34,7 @@ import javax.json.JsonValue;
  * @author rpablos
  */
 public class Encoder {
-    final int DEFAULT_MAXIMUM_LENGTH = 50;
+    final int DEFAULT_MAXIMUM_LENGTH = 60;
     AllowLimitedStringLenghts allowLimitedStringLenghts = new AllowLimitedStringLenghts(DEFAULT_MAXIMUM_LENGTH);
     protected OutputStream _out;
     protected int current_octet = 0;
@@ -106,10 +104,8 @@ public class Encoder {
         alignToOctet();
         current_octet |= FjsonConstants.OBJECT_IDENTIFICATION;
         flush_currentoctet();
-        Set<Entry<String, JsonValue>> pairs = jsonObject.entrySet();
-        Iterator<Entry<String, JsonValue>> iterator = pairs.iterator();
-        while (iterator.hasNext()) {
-            Entry<String, JsonValue> next = iterator.next();
+
+        for(Map.Entry<String, JsonValue> next : jsonObject.entrySet()) {
             String key = next.getKey();
             alignToOctet();
             encodeIdentifyingStringOrIndex(key, vocabulary.key);
@@ -129,9 +125,7 @@ public class Encoder {
         }
         else {
             flush_currentoctet();
-            Iterator<JsonValue> iterator = jsonArray.iterator();
-            while (iterator.hasNext()) {
-                JsonValue next = iterator.next();
+            for (JsonValue next: jsonArray) {
                 encodeJsonValue(next);
             }
             encodeStructureTermination();
@@ -202,9 +196,6 @@ public class Encoder {
             case STRING: 
                 encodeJsonString((JsonString)value); 
                 break;
-            case NULL:
-                encodeJsonNull();
-                break;
             case NUMBER:
                 encodeJsonNumber((JsonNumber)value);
                 break;
@@ -219,6 +210,9 @@ public class Encoder {
                 break;
             case FALSE:
                 encodeJsonBoolean(false);
+                break;
+            case NULL:
+                encodeJsonNull();
                 break;
         }
     }

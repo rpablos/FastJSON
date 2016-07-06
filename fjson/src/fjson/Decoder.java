@@ -28,6 +28,7 @@ import fjson.FixedLengthTypes.JsonNumberINT64;
 import fjson.FixedLengthTypes.JsonNumberINT8;
 import fjson.FixedLengthTypes.JsonNumberUINT16;
 import fjson.FixedLengthTypes.JsonNumberUINT32;
+import fjson.FixedLengthTypes.JsonNumberUINT5;
 import fjson.FixedLengthTypes.JsonNumberUINT64;
 import fjson.FixedLengthTypes.JsonNumberUINT8;
 import fjson.Types.JsonAlgorithmEncodingString;
@@ -67,7 +68,6 @@ import javax.json.stream.JsonParsingException;
  */
 public class Decoder {
     protected JsonLocation jsonLocation = new JsonLocation_Impl();
-//    static JsonBuilderFactory jsonFactory = Json.createBuilderFactory(null);
     protected int current_octet;
     protected InputStream _in;
     protected boolean halfOctetLastTermination = false;
@@ -119,7 +119,7 @@ public class Decoder {
         }
     }
     protected JsonObject decodeJsonObject() throws IOException, FjsonException {
-//        JsonObjectBuilder objectBuilder = jsonFactory.createObjectBuilder();
+
         Map<String, JsonValue> map = new LinkedHashMap<String, JsonValue>();
         boolean _terminate = false;
         boolean terminateOnHalf = true;
@@ -132,7 +132,7 @@ public class Decoder {
             String key = decodeIdentifyingStringOrIndex(vocabulary.keys);
             readOctet();
             JsonValue value = decodeJsonValue();
-//            objectBuilder.add(key,value);
+
             map.put(key, value);
             if ((value.getValueType() == ValueType.OBJECT) || (value.getValueType() == ValueType.ARRAY))
                 if ((halfOctetLastTermination) && ((current_octet & 0xF) == FjsonConstants.TERMINATION_PATTERN)) {
@@ -141,7 +141,7 @@ public class Decoder {
                 }
         }
         halfOctetLastTermination = terminateOnHalf;
-//        return objectBuilder.build();
+
         return new JsonObject_Impl(map);
     }
     protected JsonArray decodeJsonArray() throws IOException, FjsonException {
@@ -151,7 +151,7 @@ public class Decoder {
             return decodeArrayOfFixedLength(JsonArrayOfFixedLength.ArrayType.values()[current_octet & 0xF]);
         }
         boolean terminateOnHalf = true;
-//        JsonArrayBuilder arrayBuilder = jsonFactory.createArrayBuilder();
+
         List<JsonValue> list = new ArrayList<JsonValue>();
         boolean _terminate = false;
         while (!_terminate) {
@@ -161,7 +161,7 @@ public class Decoder {
                 break;
             }
             JsonValue value = decodeJsonValue();
-//            arrayBuilder.add(value);
+
             list.add(value);
             if ((value.getValueType() == ValueType.OBJECT) || (value.getValueType() == ValueType.ARRAY))
                 if ((halfOctetLastTermination) && ((current_octet & 0xF) == FjsonConstants.TERMINATION_PATTERN)) {
@@ -170,7 +170,7 @@ public class Decoder {
                 }
         }
         halfOctetLastTermination = terminateOnHalf;
-//        return arrayBuilder.build();
+
         return new JsonArray_Impl(list);
     }
     protected JsonArrayOfFixedLength decodeArrayOfFixedLength(JsonArrayOfFixedLength.ArrayType type) throws IOException {
@@ -240,7 +240,7 @@ public class Decoder {
     }
     protected JsonNumber decodeJsonNumber() throws FjsonException, IOException {
         if ((current_octet & FjsonConstants.NUMBER_LITTLEUINT_IDENTIFICATION) != 0)
-            return new JsonNumberINT8((byte)(current_octet & FjsonConstants.LITTLEUINT_NUMBER_MASK));
+            return new JsonNumberUINT5((byte)(current_octet & FjsonConstants.LITTLEUINT_NUMBER_MASK));
         if ((current_octet & FjsonConstants.NUMBER_VARIABLE_IDENTIFICATION) != 0)
             return new JsonNumber_Impl(new BigDecimal(Numeric.instance.fromByteArray(decodeNonEmptyOctetStringOnFifthBit())));
         switch(current_octet & FjsonConstants.TYPE_OF_NUMBER_MASK ) {
@@ -546,7 +546,10 @@ public class Decoder {
         if ((mascara & FjsonConstants.INITIAL_VOCABULARY_EXTERNAL_VOCABULARY_FLAG) != 0) {
             readOctet();
             String externalURI = decodeUTF8inInternalEncodingBufferAsString(decodeNonEmptyOctetStringOnSecondBit());
-            vocabulary.setExternalVocabulary(registredExternalVocabulary.get(externalURI));
+            InitialVocabulary extVoc = registredExternalVocabulary.get(externalURI);
+            if (extVoc == null)
+                throw new FjsonException("External vocabulary not registred: "+externalURI);
+            vocabulary.setExternalVocabulary(extVoc);
         }
         if ((mascara & FjsonConstants.INITIAL_VOCABULARY_ALPHABETS_FLAG) != 0) {
             decodeAlphabetVocabularyTable(vocabulary.alphabets);
@@ -611,6 +614,10 @@ public class Decoder {
     }
     public List<Additional_datum> getAdditional_Data() {
         return additional_data;
+    }
+    public void reset() {
+        vocabulary.reset();
+        current_octet = 0;
     }
     
     static class JsonLocation_Impl implements JsonLocation {

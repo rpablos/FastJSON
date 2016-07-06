@@ -33,7 +33,7 @@ public class FJsonReader extends Decoder implements JsonReader {
         } catch (Exception ex) {
             throw new JsonException(ex.getLocalizedMessage(),ex);
         }
-        return (JsonStructure) js;
+        return js;
     }
 
     @Override

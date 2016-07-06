@@ -1,8 +1,5 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+//  Author: Ronald Pablos
+//  Year: 2016
 
 package fjson;
 
@@ -76,6 +73,17 @@ public class Test {
         System.out.println("Size fjson with primitives and algorithms: "+baos.size());
         System.out.println("Size JSON string: "+jsonArray.toString().length());
         
+//        InitialVocabulary iniVoc = new InitialVocabulary();
+//        InitialVocabulary extVoc = new InitialVocabulary();
+//        extVoc.keys.addAll(Arrays.asList(new String[]{"id","Vendor","MSISDN","Power","Kc","Bitmask"}));
+//        iniVoc.setExternalVocabulary("external", extVoc);
+//        baos.reset();
+//        jsonEncoder.reset();
+//        jsonEncoder.setInitialVocabulary(iniVoc);
+//        jsonEncoder.write(jsonArray);
+//        System.out.println("Size fjson with primitives and algorithms and external vocabulary: "+baos.size());
+//        System.out.println("Size JSON string: "+jsonArray.toString().length());
+        
         PruebaRedimientoCodificandoJson(jsonArray, 100000);
         PruebaRedimientoCodificandoFJson(jsonArray, 100000);
         ByteArrayInputStream bais = new ByteArrayInputStream(jsonArray.toString().getBytes());
@@ -128,11 +136,11 @@ public class Test {
     private static void PruebaRedimientoDecodificandoFJson(ByteArrayInputStream bais, int count) {
         JsonStructure read;
         long t0 = System.currentTimeMillis();
-        JsonReader jsonDecoder = new FJsonReader(bais);
+        FJsonReader jsonDecoder = new FJsonReader(bais);
         for (int i =0; i< count; i++) {
             
             read = jsonDecoder.read();
-            
+            jsonDecoder.reset();
             bais.reset();
         }
         long t1 = System.currentTimeMillis();

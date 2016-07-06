@@ -113,6 +113,8 @@ public class Vocabulary extends BuiltinVocabulary {
     }
 
     public void reset() {
+        internalInitialVocabulary.key.allow = key.allow;
+        internalInitialVocabulary.string_values.allow = string_values.allow;
         key = (IndexMap<String>) internalInitialVocabulary.key.clone();
         string_values = (IndexMap<String>) internalInitialVocabulary.string_values.clone();
     }

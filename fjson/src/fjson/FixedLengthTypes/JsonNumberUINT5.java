@@ -12,12 +12,12 @@ import fjson.FjsonConstants;
 public class JsonNumberUINT5 extends JsonNumberINT8 {
 
     public JsonNumberUINT5(byte value) {
-        super(value);
+        super((byte)(value & FjsonConstants.LITTLEUINT_NUMBER_MASK));
     }
 
     @Override
     public int intValue() {
-        return value & FjsonConstants.LITTLEUINT_NUMBER_MASK;
+        return value;
     }
 
     @Override
