@@ -132,3 +132,10 @@ If you don't want use builders avoiding using Json class, just using the json li
         ...
         JsonArray jsonArray = new JsonArray_Impl(list);
 ```
+
+#### Tools ####
+
+You can execute `fjson.Test` to test the performance of the example above: `java -cp fjson.jar fjson.Test`
+That will execute 100000 times the encoding/decoding of json/fjson. The `fjson` case with algorithms and alphabets. Try in your own enviroment and see the results.
+
+Also, you can execute `java -cp fjson.jar fjson.TestSpeed <json file>` to see the performance encoding and decoding json/fjson. In this case, there is no optimizations like arrays of primitives, algorithms or alphabets.
