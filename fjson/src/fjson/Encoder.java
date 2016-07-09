@@ -105,12 +105,10 @@ public class Encoder {
         current_octet |= FjsonConstants.OBJECT_IDENTIFICATION;
         flush_currentoctet();
 
-        for(Map.Entry<String, JsonValue> next : jsonObject.entrySet()) {
-            String key = next.getKey();
+        for(Map.Entry<String, JsonValue> pair : jsonObject.entrySet()) {
             alignToOctet();
-            encodeIdentifyingStringOrIndex(key, vocabulary.key);
-            JsonValue value = next.getValue();
-            encodeJsonValue(value);
+            encodeIdentifyingStringOrIndex(pair.getKey(), vocabulary.key);
+            encodeJsonValue(pair.getValue());
         }
         encodeStructureTermination();
     }
@@ -125,8 +123,8 @@ public class Encoder {
         }
         else {
             flush_currentoctet();
-            for (JsonValue next: jsonArray) {
-                encodeJsonValue(next);
+            for (JsonValue value: jsonArray) {
+                encodeJsonValue(value);
             }
             encodeStructureTermination();
         }

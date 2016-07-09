@@ -17,7 +17,7 @@ public class JsonArrayINT32 extends JsonArrayOfFixedLength {
     }
     
     @Override
-    public JsonValue get(int i) { return new JsonNumberUINT32(((int[])array)[i]); }
+    public JsonValue get(int i) { return new JsonNumberINT32(((int[])array)[i]); }
 
     @Override
     public ArrayType getArrayType() {
