@@ -136,6 +136,9 @@ If you don't want use builders avoiding using Json class, just using the json li
 #### Tools ####
 
 You can execute `fjson.Test` to test the performance of the example above: `java -cp fjson.jar fjson.Test`
-That will execute 100000 times the encoding/decoding of json/fjson. The `fjson` case with algorithms and alphabets. Try in your own enviroment and see the results.
+That will execute 100000 times the encoding/decoding of json/fjson. This is a `fjson` case with algorithms and alphabets. Try in your own enviroment and see the results.
+
+You can also execute `fjson.Test2` to test the performance of the example above extended with 2 arrays of primitives with 100 elements each: one int[] and one byte[]. Execute: `java -cp fjson.jar fjson.Test2`
+That will execute 100000 times the encoding/decoding of json/fjson. This is a `fjson` case with algorithms and alphabets. Try in your own enviroment and see the results.
 
 Also, you can execute `java -cp fjson.jar fjson.TestSpeed <json file>` to see the performance encoding and decoding json/fjson. In this case, there is no optimizations like arrays of primitives, algorithms or alphabets.
